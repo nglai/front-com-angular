@@ -1,17 +1,19 @@
 <form>
   <img src="../../assets/cliente.png" alt="">
 
-  <input type="text" placeholder="Nome" class="form-control">
-  <input type="number" placeholder="Idade" class="form-control">
-  <input type="text" placeholder="Cidade" class="form-control">
+  <input type="text" name="nome" [(ngModel)]="cliente.nome" placeholder="Nome" class="form-control">
+  <input type="number" name="idade" [(ngModel)]="cliente.idade" placeholder="Idade" class="form-control">
+  <input type="text" name="cidade" [(ngModel)]="cliente.cidade" placeholder="Cidade" class="form-control">
 
-  <button class="btn btn-primary" *ngIf="btnCadastro">Cadastrar</button>
-  <button class="btn btn-warning" *ngIf="!btnCadastro">Alterar</button>
-  <button class="btn btn-danger" *ngIf="!btnCadastro">Remover</button>
-  <button class="btn btn-secondary" *ngIf="!btnCadastro">Cancelar</button>
+  <button class="btn btn-primary" *ngIf="btnCadastro" (click)="cadastrar()">Cadastrar</button>
+  <button class="btn btn-warning" *ngIf="!btnCadastro" (click)="editar()">Alterar</button>
+  <button class="btn btn-danger" *ngIf="!btnCadastro" (click)="remover()">Remover</button>
+  <button class="btn btn-secondary" *ngIf="!btnCadastro" (click)="cancelar()" >Cancelar</button>
 </form>
 
-<table class="table">
+<!-- <h1>{{cliente | json}}</h1> -->
+
+<table class="table" *ngIf="tabela">
   <thead>
     <tr>
       <th>#</th>
@@ -21,4 +23,13 @@
       <th>Selecionar</th>
     </tr>
   </thead>
+  <tbody>
+    <tr *ngFor="let c of clientes; index as i">
+      <td>{{i+1}}</td>
+      <td>{{c.nome}}</td>
+      <td>{{c.idade}}</td>
+      <td>{{c.cidade}}</td>
+      <td><button class="btn btn-success" (click)="selecionarClienteEspecifico(i)">Selecionar</button></td>
+    </tr>
+  </tbody>
 </table>
